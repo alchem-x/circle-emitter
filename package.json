@@ -1,0 +1,31 @@
+{
+  "name": "circle-emitter",
+  "version": "1.0.0",
+  "description": "Circle Emitter",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack serve",
+    "build": "webpack --mode=production"
+  },
+  "keywords": [],
+  "author": "Aerbeilu",
+  "type": "module",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.25.4",
+    "@emotion/css": "^11.13.0",
+    "@vue/babel-plugin-jsx": "^1.2.2",
+    "babel-loader": "^9.1.3",
+    "html-webpack-plugin": "^5.6.0",
+    "marked": "^14.1.0",
+    "naive-ui": "^2.39.0",
+    "pinia": "^2.2.2",
+    "terser-webpack-plugin": "^5.3.10",
+    "timeago.js": "^4.0.2",
+    "vue": "^3.4.38",
+    "vue-loader": "^17.4.2",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  }
+}
