@@ -1,0 +1,54 @@
+version: 2.1
+jobs:
+  build-node-job:
+    docker:
+      - image: cimg/node:20.14.0
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore pnpm package cache
+          keys:
+            - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
+      - run:
+          name: Build static assets
+          command: |
+            pnpm install
+            npm run build
+      - save_cache:
+          name: Save pnpm Package Cache
+          key: pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
+          paths:
+            - .pnpm-store
+      - persist_to_workspace:
+          root: .
+          paths:
+            - src/main/resources/static/
+  build-java-job:
+    docker:
+      - image: cimg/openjdk:21.0.2
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          keys:
+            - gradle-dependencies-{{ checksum "build.gradle.kts" }}
+      - run:
+          name: Build jar
+          command: |
+            ./gradlew clean build
+      - save_cache:
+          key: gradle-dependencies-{{ checksum "build.gradle.kts" }}
+          paths:
+            - ~/.gradle
+      - store_test_results:
+          path: build/test-results
+workflows:
+  ci:
+    jobs:
+      - build-node-job:
+          name: build-node
+      - build-java-job:
+          name: build-java
+          requires:
+            - build-node
