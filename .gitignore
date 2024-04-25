@@ -1,9 +1,0 @@
-.DS_Store
-.idea
-node_modules/
-.vscode/
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-dist/
-src/main/resources/static/
