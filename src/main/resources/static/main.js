@@ -715,7 +715,7 @@ var ProjectTable = {
               <div class="title">
                 <a :href="it.getPipelineUrl(state.appSetting.host)" target="_blank">{{ it.name }}</a>
               </div>
-              <div class="description">{{ it.description }}</div>
+              <div class="description" v-html="it.description"></div>
             </td>
             <td>
               <div v-if="it.getLatestTriggered()">
