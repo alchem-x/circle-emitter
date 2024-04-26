@@ -595,13 +595,13 @@ function openProjectModal({ project, appSetting, onDelete, onCopy }) {
             <div class="form-row">
               <label for="project-parameters">Parameters<span class="red">*</span></label>
               <textarea :value="project.getParametersJsonString()" id="project-parameters"
-                        rows="5" placeholder="Enter JSON parameters"
+                        rows="5" placeholder="Enter JSON parameters" spellcheck="false"
                         class="ui-textarea" name="project-parameters" required></textarea>
             </div>
             <div class="form-row">
               <label for="project-description">Description<span class="red">*</span></label>
               <textarea :value="project.description" id="project-description"
-                        placeholder="Enter description" rows="5"
+                        placeholder="Enter description" rows="5" spellcheck="false"
                         class="ui-textarea" name="project-description" required></textarea>
             </div>
             <div class="form-row">
