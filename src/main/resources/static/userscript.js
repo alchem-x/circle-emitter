@@ -607,12 +607,6 @@ function openProjectModal({ project, appSetting, onDelete, onCopy }) {
                      class="ui-input" name="project-name" required>
             </div>
             <div class="form-row">
-              <label for="project-description">Description<span class="red">*</span></label>
-              <input :value="project.description" type="text" id="project-description"
-                     placeholder="Enter description"
-                     class="ui-input" name="project-description" required>
-            </div>
-            <div class="form-row">
               <label for="project-project-slug">Project slug<span class="red">*</span></label>
               <input :value="project.projectSlug" type="text" id="project-project-slug"
                      placeholder="Enter project slug"
@@ -629,6 +623,12 @@ function openProjectModal({ project, appSetting, onDelete, onCopy }) {
               <textarea :value="project.getParametersJsonString()" id="project-parameters"
                         rows="4" placeholder="Enter JSON parameters"
                         class="ui-textarea" name="project-parameters" required></textarea>
+            </div>
+            <div class="form-row">
+              <label for="project-description">Description<span class="red">*</span></label>
+              <textarea :value="project.description" id="project-description"
+                        placeholder="Enter description" rows="4"
+                        class="ui-textarea" name="project-description" required></textarea>
             </div>
             <div class="form-row">
               <label for="project-tags">Tags</label>
