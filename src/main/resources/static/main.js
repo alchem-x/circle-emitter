@@ -173,7 +173,7 @@ class Project {
     }
 
     getParametersJsonString() {
-        return JSON.stringify(this.parameters)
+        return JSON.stringify(this.parameters, null, 2)
     }
 
     setParametersJsonString(jsonString) {
@@ -512,6 +512,10 @@ const ClassName$3 = css`
     .red {
         color: #eb4646;
     }
+
+    .ui-textarea {
+        font-family: "JetBrains Mono", monospace;
+    }
 `;
 
 function openProjectModal({ project, appSetting, onDelete, onCopy }) {
@@ -609,12 +613,17 @@ function openProjectModal({ project, appSetting, onDelete, onCopy }) {
         setup() {
 
             function saveProject(form) {
-                project.name = form.get('project-name');
-                project.description = form.get('project-description');
-                project.projectSlug = form.get('project-project-slug');
-                project.branch = form.get('project-branch');
-                project.setTags(form.get('project-tags'));
-                project.setParametersJsonString(form.get('project-parameters').toString());
+                try {
+                    project.name = form.get('project-name');
+                    project.description = form.get('project-description');
+                    project.projectSlug = form.get('project-project-slug');
+                    project.branch = form.get('project-branch');
+                    project.setTags(form.get('project-tags'));
+                    project.setParametersJsonString(form.get('project-parameters').toString());
+                } catch (err) {
+                    LightTip.error(err.message);
+                    throw err
+                }
             }
 
 
