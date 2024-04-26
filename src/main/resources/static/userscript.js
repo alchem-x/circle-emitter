@@ -43,7 +43,7 @@ const AppData = {
     userscript: false,
 };
 
-const getGlobalModule = (name) => window[name] || {};
+const getGlobalModule = (name) => window[name];
 
 const { reactive, watch, onMounted, createApp, computed, ref, nextTick } = getGlobalModule('Vue');
 const { css, cx, injectGlobal } = getGlobalModule('emotion');
