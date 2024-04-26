@@ -286,7 +286,7 @@ function initState(setting) {
 }
 
 const ClassName$5 = css`
-    min-width: 540px;
+    min-width: 600px;
 
     .form-row {
         :not(:first-child) {
@@ -485,7 +485,7 @@ const DialogClassName = css`
 `;
 
 const ClassName$3 = css`
-    min-width: 540px;
+    min-width: 800px;
 
     .form-row {
         :not(:first-child) {
@@ -515,6 +515,7 @@ const ClassName$3 = css`
 
     .ui-textarea {
         font-family: "JetBrains Mono", monospace;
+        white-space: nowrap;
     }
 `;
 
@@ -594,13 +595,13 @@ function openProjectModal({ project, appSetting, onDelete, onCopy }) {
             <div class="form-row">
               <label for="project-parameters">Parameters<span class="red">*</span></label>
               <textarea :value="project.getParametersJsonString()" id="project-parameters"
-                        rows="4" placeholder="Enter JSON parameters"
+                        rows="5" placeholder="Enter JSON parameters"
                         class="ui-textarea" name="project-parameters" required></textarea>
             </div>
             <div class="form-row">
               <label for="project-description">Description<span class="red">*</span></label>
               <textarea :value="project.description" id="project-description"
-                        placeholder="Enter description" rows="4"
+                        placeholder="Enter description" rows="5"
                         class="ui-textarea" name="project-description" required></textarea>
             </div>
             <div class="form-row">
