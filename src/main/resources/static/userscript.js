@@ -236,7 +236,7 @@ var sampleAppSetting = {
         {
             "name": "circle-emitter",
             "description": "Circle Emitter",
-            "projectSlug": "github/alchemy-works/circle-emitter",
+            "projectSlug": "github/alchem-x/circle-emitter",
             "branch": "main",
             "parameters": {},
             "tags": "",
@@ -413,7 +413,7 @@ var HeadLine = {
       <div :class="ClassName">
         <h2>✅&nbsp;Circle Emitter</h2>
         <div>
-          <a href="https://github.com/alchemy-works/circle-emitter" target="_blank">Docs</a>
+          <a href="https://github.com/alchem-x/circle-emitter" target="_blank">Docs</a>
           &nbsp;
           <Button :on-click="onClickSetting" type="normal">Setting</Button>
         </div>
