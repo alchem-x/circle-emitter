@@ -516,7 +516,7 @@ const DialogClassName = css`
 `;
 
 const ClassName$3 = css`
-    min-width: 800px;
+    width: min(80vw, 800px);
 
     .form-row {
         :not(:first-child) {
