@@ -35,7 +35,7 @@ public class CircleEmitterApplication {
     @Bean
     public ApplicationRunner applicationRunner(
             @Value("${server.port}") String port,
-            @Value("classpath:icons/Jvav.png") Resource icon) {
+            @Value("classpath:icons/Check.png") Resource icon) {
         var APP_LINK = "http://localhost:%s".formatted(port);
 
         var openLink = (Consumer<String>) (link) -> {
