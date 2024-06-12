@@ -1,9 +1,12 @@
 package nano;
 
+import nano.common.AppEnv;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 
@@ -20,23 +23,21 @@ import java.util.function.Supplier;
 @SpringBootApplication
 public class CircleEmitterApplication {
 
-    private static boolean isUIMode() {
-        return "UI".equals(System.getenv("APP"))
-                || "UI".equals(System.getProperty("APP"));
-    }
-
     public static void main(String... args) {
         var ignore = new SpringApplicationBuilder()
                 .sources(CircleEmitterApplication.class)
-                .headless(!isUIMode())
+                .headless(!AppEnv.isUIMode())
                 .run(args);
     }
 
     @Bean
-    public ApplicationRunner applicationRunner(
-            @Value("${server.port}") String port,
-            @Value("classpath:icons/Check.png") Resource icon) {
-        var APP_LINK = "http://localhost:%s".formatted(port);
+    public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> serverPortFactoryCustomizer() {
+        return (factory) -> factory.setPort(AppEnv.getAppPort());
+    }
+
+    @Bean
+    public ApplicationRunner applicationRunner(@Value("classpath:icons/Check.png") Resource icon) {
+        var APP_LINK = "http://localhost:%s".formatted(AppEnv.getAppPort());
 
         var openLink = (Consumer<String>) (link) -> {
             try {
@@ -61,14 +62,14 @@ public class CircleEmitterApplication {
         };
 
         return (args) -> {
-            if (isUIMode()) {
+            if (AppEnv.isUIMode()) {
                 System.setProperty("apple.awt.UIElement", "true");
                 SwingUtilities.invokeLater(() -> {
                     if (SystemTray.isSupported()) {
                         var systemTray = SystemTray.getSystemTray();
                         var trayPopupMenu = new PopupMenu();
                         trayPopupMenu.add(createPopupMenuItem.apply("Open", (ev) -> openLink.accept(APP_LINK)));
-                        trayPopupMenu.add(createPopupMenuItem.apply("Exit",(ev) -> System.exit(0)));
+                        trayPopupMenu.add(createPopupMenuItem.apply("Exit", (ev) -> System.exit(0)));
                         var trayIcon = new TrayIcon(getTrayIconImage.get(), "Circle Emitter", trayPopupMenu);
                         trayIcon.setImageAutoSize(true);
                         try {
