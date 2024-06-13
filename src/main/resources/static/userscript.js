@@ -286,7 +286,7 @@ function initState(setting) {
 }
 
 const ClassName$5 = css`
-    min-width: 600px;
+    width: min(80vw, 600px);
 
     .form-row {
         :not(:first-child) {
