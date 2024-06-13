@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class CircleService {
@@ -34,5 +35,9 @@ public class CircleService {
         } catch (HttpClientErrorException ex) {
             return ex.getResponseBodyAs(Map.class);
         }
+    }
+
+    public void quit() {
+        CompletableFuture.runAsync(() -> System.exit(0));
     }
 }

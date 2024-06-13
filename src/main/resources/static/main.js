@@ -45,7 +45,16 @@ const AppData = {
 
 const getGlobalModule = (name) => window[name];
 
-const { reactive, watch, onMounted, createApp, computed, ref, nextTick } = getGlobalModule('Vue');
+const {
+    reactive,
+    watch,
+    onMounted,
+    createApp,
+    computed,
+    ref,
+    nextTick,
+    defineComponent,
+} = getGlobalModule('Vue');
 const { css, cx, injectGlobal } = getGlobalModule('emotion');
 const Dialog = getGlobalModule('Dialog');
 const LightTip = getGlobalModule('LightTip');
@@ -397,6 +406,43 @@ function openAppSettingModal({ appSetting, importSetting, }) {
     return { dialog, vm, }
 }
 
+async function quit() {
+    const response = await fetch('/api/circle/quit', {
+        method: 'POST',
+    });
+    if (!response.ok) {
+        throw new Error(response.statusText || await response.text())
+    }
+    const result = await response.json();
+    if (result.message) {
+        throw new Error(result.message)
+    }
+    return result
+}
+
+var QuitButton = defineComponent({
+    components: { Button },
+    template: `
+      <Button type="danger" :on-click="onQuit">Quit</Button>
+    `,
+    setup(props) {
+        async function onQuit() {
+            try {
+                await quit();
+                window.close();
+                window.location = 'about:blank';
+            } catch (err) {
+                console.error(err);
+                LightTip.error(err.message);
+            }
+        }
+
+        return {
+            onQuit,
+        }
+    },
+});
+
 const ClassName$4 = css`
   display: flex;
   justify-content: space-between;
@@ -408,7 +454,7 @@ const ClassName$4 = css`
   }
 `;
 
-var HeadLine = {
+var HeadLine = defineComponent({
     template: `
       <div :class="ClassName">
         <h2>✅&nbsp;Circle Emitter</h2>
@@ -416,10 +462,12 @@ var HeadLine = {
           <a href="https://github.com/alchem-x/circle-emitter" target="_blank">Docs</a>
           &nbsp;
           <Button :on-click="onClickSetting" type="normal">Setting</Button>
+          &nbsp;
+          <QuitButton v-if="!userscript"/>
         </div>
       </div>
     `,
-    components: { Button },
+    components: { QuitButton, Button },
     props: {
         state: Object,
     },
@@ -444,9 +492,10 @@ var HeadLine = {
         return {
             ClassName: ClassName$4,
             onClickSetting,
+            userscript: AppData.userscript
         }
     }
-};
+});
 
 async function triggerViaProxy({ project, appSetting }) {
     const response = await fetch('/api/circle/trigger', {

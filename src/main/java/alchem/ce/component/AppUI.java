@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URI;
@@ -17,12 +16,12 @@ import java.net.URI;
 public class AppUI {
 
     private final Environment env;
-    private final Resource trayIcon;
+    private final Resource icon;
 
     public AppUI(@NotNull Environment env,
-                 @Value("classpath:icons/Check.png") Resource trayIcon) {
+                 @Value("classpath:icons/Check.png") Resource icon) {
         this.env = env;
-        this.trayIcon = trayIcon;
+        this.icon = icon;
     }
 
     private String getAppLink() {
@@ -34,7 +33,7 @@ public class AppUI {
         SwingUtilities.invokeLater(() -> {
             if (SystemTray.isSupported()) {
                 var systemTray = SystemTray.getSystemTray();
-                var trayIcon = this.createTray();
+                var trayIcon = this.createTrayIcon();
                 try {
                     systemTray.add(trayIcon);
                 } catch (AWTException ex) {
@@ -45,27 +44,23 @@ public class AppUI {
         });
     }
 
-    private @NotNull TrayIcon createTray() {
-        var popupMenu = new PopupMenu();
-        popupMenu.add(createMenuItem("Open CircleEmitter", (ev) -> openLink(this.getAppLink())));
-        popupMenu.add(createMenuItem("Exit", (ev) -> System.exit(0)));
-        var trayIcon = new TrayIcon(this.getTrayIconImage(), "App", popupMenu);
-        trayIcon.setImageAutoSize(true);
-        return trayIcon;
+    private @NotNull TrayIcon createTrayIcon() {
+        var popup = new PopupMenu();
+        var mi = new MenuItem("Open CircleEmitter");
+        mi.addActionListener((ev) -> openLink(this.getAppLink()));
+        popup.add(mi);
+        var image = this.getTrayIconImage();
+        var icon = new TrayIcon(image, "CircleEmitter", popup);
+        icon.setImageAutoSize(true);
+        return icon;
     }
 
     private @NotNull Image getTrayIconImage() {
         try {
-            return Toolkit.getDefaultToolkit().createImage(this.trayIcon.getContentAsByteArray());
+            return Toolkit.getDefaultToolkit().createImage(this.icon.getContentAsByteArray());
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
         }
-    }
-
-    private static @NotNull MenuItem createMenuItem(String label, ActionListener listener) {
-        var menu = new MenuItem(label);
-        menu.addActionListener(listener);
-        return menu;
     }
 
     private static void openLink(String link) {

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/circle")
 public class CircleController {
@@ -22,5 +24,11 @@ public class CircleController {
     public ResponseEntity<?> trigger(@RequestBody TriggerSpec spec) {
         var result = this.circleService.trigger(spec);
         return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/quit")
+    public ResponseEntity<?> quit() {
+        this.circleService.quit();
+        return ResponseEntity.ok(Map.of());
     }
 }
