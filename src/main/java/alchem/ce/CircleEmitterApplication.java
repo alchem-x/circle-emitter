@@ -36,7 +36,6 @@ public class CircleEmitterApplication {
     public ApplicationRunner runner(@NotNull AppUI ui) {
         return (args) -> {
             if (AppEnv.isUIMode()) {
-                System.setProperty("apple.awt.UIElement", "true");
                 ui.start();
             }
         };
