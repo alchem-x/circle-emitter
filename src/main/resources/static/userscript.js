@@ -448,8 +448,8 @@ var HeadLine = {
     }
 };
 
-async function triggerPipelineViaProxy({ project, appSetting }) {
-    const response = await fetch('/api/circle/trigger_pipeline', {
+async function triggerViaProxy({ project, appSetting }) {
+    const response = await fetch('/api/circle/trigger', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -466,8 +466,8 @@ async function triggerPipelineViaProxy({ project, appSetting }) {
         throw new Error(response.statusText || await response.text())
     }
     const result = await response.json();
-    if (result.error) {
-        throw new Error(result.error)
+    if (result.message) {
+        throw new Error(result.message)
     }
     return result
 }
@@ -480,7 +480,7 @@ async function getCsrfToken(host) {
     return result.csrf_token
 }
 
-async function triggerPipelineViaApi({ project, appSetting }) {
+async function triggerViaApi({ project, appSetting }) {
     const url = `https://${appSetting.host}/api/v2/project/${project.projectSlug}/pipeline`;
     const response = await fetch(url, {
         method: 'POST',
@@ -501,11 +501,11 @@ async function triggerPipelineViaApi({ project, appSetting }) {
     return result
 }
 
-async function triggerPipeline(options = {}) {
+async function trigger(options = {}) {
     if (AppData.userscript) {
-        return await triggerPipelineViaApi(options)
+        return await triggerViaApi(options)
     } else {
-        return await triggerPipelineViaProxy(options)
+        return await triggerViaProxy(options)
     }
 }
 
@@ -665,7 +665,7 @@ function openProjectModal({ project, appSetting, onDelete, onCopy }) {
                     getTriggerButtonClassList().add('loading');
                     saveProject(new FormData(ev.target));
                     //
-                    const triggered = await triggerPipeline({
+                    const triggered = await trigger({
                         project,
                         appSetting,
                     });

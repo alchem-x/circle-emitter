@@ -1,7 +1,7 @@
-package nano.controller;
+package alchem.ce.controller;
 
-import nano.common.TriggerPipelineDTO;
-import nano.service.CircleService;
+import alchem.ce.common.TriggerSpec;
+import alchem.ce.service.CircleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,9 +18,9 @@ public class CircleController {
         this.circleService = circleService;
     }
 
-    @PostMapping("/trigger_pipeline")
-    public ResponseEntity<?> triggerPipeline(@RequestBody TriggerPipelineDTO triggerPipelineDTO) {
-        var result = this.circleService.triggerPipeline(triggerPipelineDTO);
+    @PostMapping("/trigger")
+    public ResponseEntity<?> trigger(@RequestBody TriggerSpec spec) {
+        var result = this.circleService.trigger(spec);
         return ResponseEntity.ok(result);
     }
 }
