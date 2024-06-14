@@ -46,9 +46,15 @@ public class AppUI {
 
     private @NotNull TrayIcon createTrayIcon() {
         var popup = new PopupMenu();
-        var mi = new MenuItem("Open CircleEmitter");
-        mi.addActionListener((ev) -> openLink(this.getAppLink()));
-        popup.add(mi);
+        {
+            var menuOpen = new MenuItem("Open CircleEmitter");
+            menuOpen.addActionListener((ev) -> openLink(this.getAppLink()));
+            popup.add(menuOpen);
+            popup.addSeparator();
+            var menuQuit = new MenuItem("Quit");
+            menuOpen.addActionListener((ev) -> System.exit(0));
+            popup.add(menuQuit);
+        }
         var image = this.getTrayIconImage();
         var icon = new TrayIcon(image, "CircleEmitter", popup);
         icon.setImageAutoSize(true);
