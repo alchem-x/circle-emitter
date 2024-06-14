@@ -52,7 +52,7 @@ public class AppUI {
             popup.add(menuOpen);
             popup.addSeparator();
             var menuQuit = new MenuItem("Quit");
-            menuOpen.addActionListener((ev) -> System.exit(0));
+            menuQuit.addActionListener((ev) -> System.exit(0));
             popup.add(menuQuit);
         }
         var image = this.getTrayIconImage();
