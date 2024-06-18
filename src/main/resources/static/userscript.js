@@ -73,11 +73,11 @@ injectGlobal`
     }
 `;
 
-var Button = {
+var Button = defineComponent({
     template: `
       <button @click="onClickInternal" class="ui-button"
               :class="state.loading ? 'loading' : ''" :data-type="type">
-      <slot></slot>
+        <slot></slot>
       </button>
     `,
     props: {
@@ -109,7 +109,7 @@ var Button = {
             onClickInternal,
         }
     },
-};
+});
 
 function readAsText(blob) {
     const reader = new FileReader();
@@ -366,7 +366,7 @@ function openAppSettingModal({ appSetting, importSetting, }) {
     dialog.querySelector('.button-import-setting').style.float = 'left';
     dialog.querySelector('.button-export-setting').style.float = 'left';
     //
-    const vm = createApp({
+    const vm = createApp(defineComponent({
         template: `
           <form id="app-setting-form" class="ui-form" :class="ClassName" @submit.prevent="onSubmit">
             <div class="form-row">
@@ -401,7 +401,7 @@ function openAppSettingModal({ appSetting, importSetting, }) {
                 isUserscript,
             }
         },
-    });
+    }));
     vm.mount(dialog.querySelector('.modal-content-root'));
     return { dialog, vm, }
 }
@@ -462,8 +462,10 @@ var HeadLine = defineComponent({
           <a href="https://github.com/alchem-x/circle-emitter" target="_blank">Docs</a>
           &nbsp;
           <Button :on-click="onClickSetting" type="normal">Setting</Button>
-          &nbsp;
-          <QuitButton v-if="!userscript"/>
+          <template v-if="showQuit">
+            &nbsp;
+            <QuitButton/>
+          </template>
         </div>
       </div>
     `,
@@ -492,7 +494,7 @@ var HeadLine = defineComponent({
         return {
             ClassName: ClassName$4,
             onClickSetting,
-            userscript: AppData.userscript
+            showQuit: false,
         }
     }
 });
@@ -651,7 +653,7 @@ function openProjectModal({ project, appSetting, onDelete, onCopy }) {
     });
     dialog.classList.add(DialogClassName);
 
-    const vm = createApp({
+    const vm = createApp(defineComponent({
         template: `
           <form id="project-form" class="ui-form" :class="ClassName" @submit.prevent="onSubmit">
             <div class="form-row">
@@ -752,7 +754,7 @@ function openProjectModal({ project, appSetting, onDelete, onCopy }) {
                 onSubmit,
             }
         },
-    });
+    }));
     vm.mount(dialog.querySelector('.modal-content-root'));
     return { dialog, vm, }
 }
@@ -785,7 +787,7 @@ const ClassName$2 = css`
     }
 `;
 
-var ProjectTable = {
+var ProjectTable = defineComponent({
     template: `
       <div :class="ClassName">
         <table class="ui-table">
@@ -869,7 +871,7 @@ var ProjectTable = {
             onClickOpenProject,
         }
     },
-};
+});
 
 const ClassName$1 = css`
     margin-top: 1rem;
@@ -882,7 +884,7 @@ const ClassName$1 = css`
     }
 `;
 
-var TagFilter = {
+var TagFilter = defineComponent({
     template: `
       <div :class="ClassName" v-if="filterTagList.length">
         <span class="tag-span">
@@ -960,7 +962,7 @@ var TagFilter = {
             checkAllInputRef,
         }
     },
-};
+});
 
 const ClassName = css`
     max-width: 1000px;
