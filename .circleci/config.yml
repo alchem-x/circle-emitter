@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Build static assets
           command: |
-            pnpm install
+            npx pnpm@9 install
             npm run build
       - save_cache:
           name: Save pnpm Package Cache
