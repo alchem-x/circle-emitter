@@ -734,7 +734,7 @@ const ClassName$2 = css`
     }
 
     .th-title {
-        width: 150px;
+        width: 180px;
         text-align: left;
     }
 
