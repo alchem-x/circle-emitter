@@ -2,12 +2,14 @@
   <div :class="ClassName">
     <h2>✅&nbsp;Circle Emitter</h2>
     <div>
-      <a href="https://github.com/alchem-x/circle-emitter" target="_blank">Docs</a>
+      <a href="https://github.com/alchem-x/circle-emitter" target="_blank">
+        <NButton text>Docs</NButton>
+      </a>
       &nbsp;
       <NButton :on-click="onClickSetting">Setting</NButton>
       <template v-if="showQuit">
         &nbsp;
-        <QuitButton />
+        <QuitButton/>
       </template>
     </div>
   </div>

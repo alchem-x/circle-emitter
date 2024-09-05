@@ -8,6 +8,11 @@ export const useStateStore = defineStore('state', {
         return initState()
     },
     getters: {
+        projectMap() {
+            const projectMap = {}
+            this.projectList.forEach((it) => projectMap[it.id] = it)
+            return projectMap
+        },
         sortingTypeOptionList() {
             return [
                 { label: 'By Default', value: SORTING_TYPE.BY_DEFAULT, },

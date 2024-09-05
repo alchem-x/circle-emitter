@@ -12,6 +12,11 @@ export function injectGlobalStyle() {
             font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
 
+        a {
+            color: #36ad6a;
+            text-decoration-line: none;
+        }
+
         .flex {
             display: flex;
         }
@@ -31,7 +36,7 @@ export function injectGlobalStyle() {
         .flex-wrap {
             flex-wrap: wrap;
         }
-        
+
         .justify-end {
             justify-content: end;
         }

@@ -26,9 +26,9 @@ export function openProjectModal({ project, appSetting, onDelete, onCopy }) {
             message: 'Enter Name',
         },
         description: {
-            required: true,
             trigger: ['blur', 'input'],
             message: 'Enter Description',
+            required: false,
         },
         projectSlug: {
             required: true,

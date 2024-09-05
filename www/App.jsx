@@ -16,10 +16,6 @@ const ClassName = css`
         margin-top: 1rem;
     }
 
-    a {
-        color: #2a80eb;
-        text-decoration-line: none;
-    }
 `
 
 export default defineComponent({
