@@ -12,7 +12,7 @@ const FooterClassName = css`
     gap: .5rem;
 `
 
-export function openFilterProjectModal() {
+export function openOrganizeProjectModal() {
     let m
     const stateStore = useStateStore()
     const state = reactive({
@@ -58,7 +58,7 @@ export function openFilterProjectModal() {
     }
 
     m = modal.create({
-        title: 'Filter Project',
+        title: 'Organize Project',
         preset: 'card',
         style: {
             width: 'min(80vw, 800px)',
