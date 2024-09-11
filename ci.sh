@@ -3,7 +3,7 @@ cd "$(dirname "$0")" || exit 1
 
 pnpm i
 npm run build
-mr -rf src/main/resources/static
+rm -rf src/main/resources/static
 mkdir -p src/main/resources/static
 cp dist/* src/main/resources/static/
 

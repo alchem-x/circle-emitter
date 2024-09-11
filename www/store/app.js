@@ -8,6 +8,19 @@ export const useStateStore = defineStore('state', {
         return initState()
     },
     getters: {
+        recentlyTriggeredTime() {
+            let t
+            for (const p of this.projectList) {
+                const it = p.getLatestTriggered()
+                if (it) {
+                    const d = new Date(it.created_at)
+                    if (!t || d.getTime() > t.getTime()) {
+                        t = d
+                    }
+                }
+            }
+            return t?.getTime()
+        },
         projectMap() {
             const projectMap = {}
             this.projectList.forEach((it) => projectMap[it.id] = it)
@@ -44,6 +57,10 @@ export const useStateStore = defineStore('state', {
         },
     },
     actions: {
+        isRecentlyTriggerProject(p) {
+            const t = p.getLatestTriggered()
+            return t && new Date(t.created_at).getTime() === this.recentlyTriggeredTime
+        },
         sortByType(l) {
             switch (this.sortingType) {
                 case SORTING_TYPE.BY_NAME:

@@ -9,7 +9,7 @@
       </NTag>
       <template v-if="project.getLatestTriggered()">
         <a :href="project.getLatestWorkflowUrl(stateStore.appSetting.host)" target="_blank">
-          <NButton tertiary>
+          <NButton tertiary :type="stateStore.isRecentlyTriggerProject(project) ? 'primary' : 'default'">
             <template #icon>
               <PipelineIcon/>
             </template>
