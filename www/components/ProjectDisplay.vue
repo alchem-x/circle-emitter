@@ -7,16 +7,7 @@
         </template>
         {{ project.branch }}
       </NTag>
-      <template v-if="project.getLatestTriggered()">
-        <a :href="project.getLatestWorkflowUrl(stateStore.appSetting.host)" target="_blank">
-          <NButton tertiary :type="stateStore.isRecentlyTriggerProject(project) ? 'primary' : 'default'">
-            <template #icon>
-              <PipelineIcon/>
-            </template>
-            {{ project.getLatestTriggered()?.number ?? -1 }} ({{ project.getLatestWorkflowCreatedAt() || '-' }})
-          </NButton>
-        </a>
-      </template>
+      <TriggeredButton v-if="project.getLatestTriggered()" :project="project"/>
     </div>
     <div v-if="project.tags" class="tags">
       <template v-for="it of project.getTagList()">
@@ -32,14 +23,13 @@
   </div>
 </template>
 <script setup>
-import { NButton, NTag } from 'naive-ui'
-import PipelineIcon from '@/components/PipelineIcon.vue'
+import { NTag } from 'naive-ui'
 import BranchIcon from '@/components/BranchIcon.vue'
 import TagIcon from '@/components/TagIcon.vue'
 import Project from '@/common/Project.js'
-import { useStateStore } from '@/store/app.js'
 import { marked } from 'marked'
 import { css } from '@emotion/css'
+import TriggeredButton from '@/components/TriggeredButton.vue'
 
 const ClassName = css`
   .meta-info {
@@ -72,8 +62,6 @@ const props = defineProps({
     required: true,
   },
 })
-
-const stateStore = useStateStore()
 
 function markdownToHtml() {
   const { description } = props.project
