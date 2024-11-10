@@ -1,8 +1,8 @@
 import { defineComponent, onMounted } from 'vue'
-import HeadLine from './components/HeadLine.vue'
-import ProjectTable from './components/ProjectTable.vue'
 import { css } from '@emotion/css'
 import { useStateStore } from '@/store/app.js'
+import HeadLine from '@/components/HeadLine.vue'
+import ProjectTable from '@/components/ProjectTable.vue'
 import TagSelect from '@/components/TagSelect.vue'
 import Toolbar from '@/components/Toolbar.vue'
 
@@ -19,13 +19,13 @@ const ClassName = css`
 `
 
 export default defineComponent({
-    render({ state }) {
+    render() {
         return (
             <div class={ClassName}>
-                <HeadLine/>
-                <TagSelect/>
-                <Toolbar/>
-                <ProjectTable class="project-table"/>
+                <HeadLine />
+                <TagSelect />
+                <Toolbar />
+                <ProjectTable class="project-table" />
             </div>
         )
     },

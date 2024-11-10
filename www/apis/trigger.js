@@ -1,4 +1,4 @@
-import { AppData } from '../deps.js'
+import { AppData } from '@/deps.js'
 
 async function triggerViaProxy({ project, appSetting }) {
     const response = await fetch('/api/proxy', {

@@ -1,11 +1,7 @@
 <template>
   <div :class="ClassName">
-    <NSelect v-model:value="stateStore.searchTagList"
-             :options="options"
-             multiple
-             filterable
-             clearable
-             placeholder="Select Tags"/>
+    <NSelect v-model:value="stateStore.searchTagList" :options="options" multiple filterable clearable
+      placeholder="Select Tags" />
   </div>
 </template>
 
@@ -17,7 +13,6 @@ import { css } from '@emotion/css'
 
 const ClassName = css`
   margin-top: 1rem;
-
 `
 
 const stateStore = useStateStore()
