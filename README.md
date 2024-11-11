@@ -33,3 +33,4 @@ https://alchem-x.github.io/circle-emitter/src/main/resources/static/userscript.j
 - Java 21 required
 - Sample setting JSON: [default_setting.js](www/samples/default_setting.js)
 - Download pre-compiled App: [Releases](https://github.com/alchem-x/circle-emitter/releases)
+
